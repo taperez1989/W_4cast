@@ -39,6 +39,24 @@ function handleSearchFormSubmit(event) {
         .then(function (data) {
             console.log(data);
             // seperate function for local storage
+            // use dot notation to access certain data items in an object
+
+            const cityName = data.city.name;
+
+            // saves to local storage or an empty array
+            const cities = JSON.parse(localStorage.getItem("cities")) || [];
+            if (!cities.includes(cityName)) {
+
+                cities.push(cityName);
+
+                // sets values of the oject in local storage
+                localStorage.setItem('cities', JSON.stringify(cities));
+
+                console.log("city name saved:", cityName);
+            } else {
+                console.log("city is already saved:", cityName);  
+            }
+
         })
 
         // an error at any step of the .thens it stops function
@@ -52,5 +70,7 @@ searchFormEl.addEventListener('submit', handleSearchFormSubmit);
 
 
 
-// https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
+// dynamically create elements to append information to containers
+
+// task card assignment as starting point
 
