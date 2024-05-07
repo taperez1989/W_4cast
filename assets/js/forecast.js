@@ -45,6 +45,9 @@ function handleSearchFormSubmit(event) {
 
             // saves to local storage or an empty array
             const cities = JSON.parse(localStorage.getItem("cities")) || [];
+            // if statement to see if city is already saved in local storage you can do without it but youll end up with
+            // multiple cities with the same name in storage.
+
             if (!cities.includes(cityName)) {
 
                 cities.push(cityName);
@@ -65,12 +68,56 @@ function handleSearchFormSubmit(event) {
         })
 }
 
-searchFormEl.addEventListener('submit', handleSearchFormSubmit);
+searchFormEl.addEventListener('submit', handleSearchFormSubmit, searchHistory);
 
 
+function searchHistory() {
+    const savedCities = JSON.parse(localStorage.getItem("cities")) || [];
+    const historyContainer = document.querySelector('.history-container');
+
+    savedCities.forEach(cities => {
+        const searchedCity = document.createElement('p');
+// add in add class for the css on the search history cities
+        searchedCity.textContent = cities;
+        historyContainer.append(searchedCity);
+        console.log(cities);
+    });
+
+    
+}
+searchHistory();
+
+    
 
 
 // dynamically create elements to append information to containers
 
 // task card assignment as starting point
 
+// this is the starting point for the current results section.
+
+// function printResults(resultObj) {
+//     console.log(resultObj);
+
+//     // set up `<div>` to hold result content
+//     const resultCard = document.createElement('div');
+//     resultCard.classList.add('card', 'bg-light', 'text-dark', 'mb-3', 'p-3');
+
+//     const resultBody = document.createElement('div');
+//     resultBody.classList.add('card-body');
+//     resultCard.append(resultBody);
+
+//     const titleEl = document.createElement('h3');
+//     titleEl.textContent = resultObj.title;
+
+//     const bodyContentEl = document.createElement('p');
+//     bodyContentEl.innerHTML =
+//         `<strong>Date:</strong>${resultObj.date}<br/>`;
+
+//     if (resultObj.subject) {
+//         bodyContentEl.innerHTML +=
+//             `<strong>Subjects:</strong>${resultObj.subject.join(', ')}<br/>`;
+//     } else {
+//         bodyContentEl.innerHTML +=
+//             '<strong>Subjects:</strong> No subject for this entry.';
+//     }
