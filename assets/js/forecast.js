@@ -2,13 +2,14 @@ const searchFormEl = document.querySelector('.form');
 
 function handleSearchFormSubmit(event) {
     event.preventDefault();
-
+// grabs the value input by the user in the form ex. user enters "san diego"
     const searchInputVal = document.getElementById('city-search').value;
 
     if (!searchInputVal) {
         console.error('search input value required');
         return;
     }
+    // the value of searchInputVal is then entered in this url for this lat lon variable in order for the first part of the fetch request to run.
     const latLon = `http://api.openweathermap.org/geo/1.0/direct?q=${searchInputVal}&limit=1&appid=f8ad66aaefdb1e05f8e8a305f8140066`;
     // fetch request for lat and lon data
     fetch(latLon)
@@ -20,12 +21,12 @@ function handleSearchFormSubmit(event) {
 
             return response.json();
         })
-        // fetch lat and lon
+        // fetch lat and lon 
         .then(function (data) {
             console.log(data);
-            const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${data[0].lat}&lon=${data[0].lon}&appid=f8ad66aaefdb1e05f8e8a305f8140066`;
+            const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${data[0].lat}&lon=${data[0].lon}&cnt=24&units=imperial&appid=f8ad66aaefdb1e05f8e8a305f8140066`;
 
-            return fetch(apiUrl)
+            return fetch(apiUrl);
 
         })
         // if response is false return erro
@@ -60,6 +61,24 @@ function handleSearchFormSubmit(event) {
                 console.log("city is already saved:", cityName);  
             }
 
+            const currentForecast = data.list[0];
+            console.log(data.list);
+
+            
+            const humidity = currentForecast.main.humidity;
+            const windSpeed = currentForecast.wind.speed;
+            const temp = currentForecast.main.temp
+
+            
+            console.log('humidity', humidity);
+            console.log('wind speed', windSpeed);
+            console.log('temp', temp);
+            return data;
+
+            // append this information to current result container
+
+            // collect 5 day forecast data and append to container
+
         })
 
         // an error at any step of the .thens it stops function
@@ -80,14 +99,41 @@ function searchHistory() {
 // add in add class for the css on the search history cities
         searchedCity.textContent = cities;
         historyContainer.append(searchedCity);
-        console.log(cities);
+        // console.log(cities);
     });
 
     
 }
 searchHistory();
 
-    
+
+// searchFormEl.addEventListener('submit', handleSearchFormSubmit, searchHistory, handleCurrentResults);
+
+   
+
+// function currentForecast() {
+//     const resultContainer = document.querySelector('.current-result');
+
+//     const currentHumidity = document.createElement('p');
+//     const currentWind = document.createElement('p');
+
+//     const currentTemp = document.createElement('p');
+//     const titleEl = document.createElement('h3');
+
+//     currentHumidity.textContent = humidity;
+//     currentWind.textContent = wind;
+//     currentTemp.textContent = temp; 
+
+
+//     resultContainer.append(currentHumidity);
+//     resultContainer.append(currentWind);
+//     resultContainer.append(currentTemp);
+
+
+// }
+// currentForecast()
+
+// const cityName = data.city.name;
 
 
 // dynamically create elements to append information to containers
@@ -101,7 +147,7 @@ searchHistory();
 
 //     // set up `<div>` to hold result content
 //     const resultCard = document.createElement('div');
-//     resultCard.classList.add('card', 'bg-light', 'text-dark', 'mb-3', 'p-3');
+//     resultCard.classList.add;
 
 //     const resultBody = document.createElement('div');
 //     resultBody.classList.add('card-body');
@@ -121,3 +167,4 @@ searchHistory();
 //         bodyContentEl.innerHTML +=
 //             '<strong>Subjects:</strong> No subject for this entry.';
 //     }
+
