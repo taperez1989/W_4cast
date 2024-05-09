@@ -24,7 +24,7 @@ function handleSearchFormSubmit(event) {
         // fetch lat and lon 
         .then(function (data) {
             console.log(data);
-            const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${data[0].lat}&lon=${data[0].lon}&appid=f8ad66aaefdb1e05f8e8a305f8140066`;
+            const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${data[0].lat}&lon=${data[0].lon}&cnt=24&units=imperial&appid=f8ad66aaefdb1e05f8e8a305f8140066`;
 
             return fetch(apiUrl);
 
@@ -61,24 +61,25 @@ function handleSearchFormSubmit(event) {
                 console.log("city is already saved:", cityName);  
             }
 
-        })
-        // .then(function (data) {
-        //     const humidWind = `https://api.openweathermap.org/data/2.5/forecast?humidity=${data.list[0].main.humidity}&windSpeed=${data.list[0].wind.speed}&appid=f8ad66aaefdb1e05f8e8a305f8140066`;
-        //     console.log(data)
-        //     return fetch(humidWind);
-        
-        // })
+            const currentForecast = data.list[0];
+            console.log(data.list);
 
-        // .then(function (data) {
-        //     const humidity = data.list.main.humidity;
-        //     const windSpeed = data.list[0].wind.speed;
-
-        //     console.log('humidity', humidity);
-        //     console.log('wind wpeed', windSpeed);
-
-        //     return fetch(humidity, windSpeed);
             
-        // })
+            const humidity = currentForecast.main.humidity;
+            const windSpeed = currentForecast.wind.speed;
+            const temp = currentForecast.main.temp
+
+            
+            console.log('humidity', humidity);
+            console.log('wind speed', windSpeed);
+            console.log('temp', temp);
+            return data;
+
+            // append this information to current result container
+
+            // collect 5 day forecast data and append to container
+
+        })
 
         // an error at any step of the .thens it stops function
         .catch(function (err) {
@@ -106,29 +107,31 @@ function searchHistory() {
 searchHistory();
 
 
-function currentForecast() {
-    const resultContainer = document.querySelector('.current-result');
+// searchFormEl.addEventListener('submit', handleSearchFormSubmit, searchHistory, handleCurrentResults);
 
-    const currentHumidity = document.createElement('p');
-    const currentWind = document.createElement('p');
+   
 
-    const currentTemp = document.createElement('p');
-    const titleEl = document.createElement('h3');
+// function currentForecast() {
+//     const resultContainer = document.querySelector('.current-result');
 
-    currentHumidity.textContent = humidity;
-    currentWind.textContent = wind;
-    currentTemp.textContent = temp; 
-    titleEl.textContent = cityName;
+//     const currentHumidity = document.createElement('p');
+//     const currentWind = document.createElement('p');
 
+//     const currentTemp = document.createElement('p');
+//     const titleEl = document.createElement('h3');
 
-    resultContainer.append(currentHumidity);
-    resultContainer.append(currentWind);
-    resultContainer.append(currentTemp);
-    resultContainer.append(titleEl);
+//     currentHumidity.textContent = humidity;
+//     currentWind.textContent = wind;
+//     currentTemp.textContent = temp; 
 
 
-}
-currentForecast()
+//     resultContainer.append(currentHumidity);
+//     resultContainer.append(currentWind);
+//     resultContainer.append(currentTemp);
+
+
+// }
+// currentForecast()
 
 // const cityName = data.city.name;
 
@@ -144,7 +147,7 @@ currentForecast()
 
 //     // set up `<div>` to hold result content
 //     const resultCard = document.createElement('div');
-//     resultCard.classList.add('card', 'bg-light', 'text-dark', 'mb-3', 'p-3');
+//     resultCard.classList.add;
 
 //     const resultBody = document.createElement('div');
 //     resultBody.classList.add('card-body');
