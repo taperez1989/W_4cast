@@ -11,6 +11,7 @@ To the best of my ability I utilized an api key and set up a fetch request to fi
 
 Lessons learned:
 
+So some lessons that I learned during this project was how to properly utilize a fetch request to get access to the weather data. Struggled a bit at first but with a little help from a tutor I started to understand a bit more. I realized that I could use the .then() blocks to further my code without having to create outside functions which was really helpful and was able to get the majority of my code done within one function. Also I had a few moments of just being very proud of myself cause I was able to troubleshoot some issues I was having with my code and fixed the issues. still struggling with css but slowly but surely I'll get it. 
 
 
 
