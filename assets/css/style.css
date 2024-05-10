@@ -57,7 +57,7 @@
     padding: 10px;
 }
 
-
+/* container for current results */
 .current-result {
     margin-top: 20px;
     width: 95%;
@@ -66,7 +66,7 @@
     margin-bottom: 10px;
 
 }
-
+/* container for 5-day forecast */
 .forecast-container {
     width: 95%;
     height: 200px;

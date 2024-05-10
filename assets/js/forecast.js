@@ -2,7 +2,9 @@ const searchFormEl = document.querySelector('.form');
 
 function handleSearchFormSubmit(event) {
     event.preventDefault();
-// grabs the value input by the user in the form ex. user enters "san diego"
+
+    // grabs the value input by the user in the form ex. user enters "san diego"
+
     const searchInputVal = document.getElementById('city-search').value;
     document.getElementById('city-search').value = '';
 
@@ -11,10 +13,15 @@ function handleSearchFormSubmit(event) {
         return;
     }
     // the value of searchInputVal is then entered in this url for this lat lon variable in order for the first part of the fetch request to run.
+
     const latLon = `http://api.openweathermap.org/geo/1.0/direct?q=${searchInputVal}&limit=1&appid=f8ad66aaefdb1e05f8e8a305f8140066`;
+
     // fetch request for lat and lon data
+
     fetch(latLon)
+        
         // if response is false return error otherwise return response
+
         .then(function (response) {
             if (!response.ok) {
                 throw response.json();
@@ -40,13 +47,16 @@ function handleSearchFormSubmit(event) {
         })
         .then(function (data) {
             console.log(data);
+
             // seperate function for local storage
             // use dot notation to access certain data items in an object
 
             const cityName = data.city.name;
 
             // saves to local storage or an empty array
+
             const cities = JSON.parse(localStorage.getItem("cities")) || [];
+
             // if statement to see if city is already saved in local storage you can do without it but youll end up with
             // multiple cities with the same name in storage.
 
@@ -59,17 +69,18 @@ function handleSearchFormSubmit(event) {
 
                 console.log("city name saved:", cityName);
             } else {
-                console.log("city is already saved:", cityName);  
+                console.log("city is already saved:", cityName);
             }
-// display current weather forecast
+
+            // display current weather forecast
             const currentForecast = data.list[0];
             console.log(data.list);
 
-            const date = new Date(currentForecast.dt*1000);
+            const date = new Date(currentForecast.dt * 1000);
             const humidity = currentForecast.main.humidity;
             const windSpeed = currentForecast.wind.speed;
             const temp = currentForecast.main.temp;
-            
+
             const resultContainer = document.querySelector('.current-result');
 
             resultContainer.innerHTML = '';
@@ -78,32 +89,32 @@ function handleSearchFormSubmit(event) {
             const currentWind = document.createElement('p');
             const currentTemp = document.createElement('p');
             const currentCity = document.createElement('h3');
-                
+
 
             resultContainer.classList.add('result-card');
 
-            currentCity.textContent = cityName +' '+date.toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: '2-digit' });
+            currentCity.textContent = cityName + ' ' + date.toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: '2-digit' });
             currentHumidity.textContent = 'Humidity:' + humidity + '%';
             currentWind.textContent = 'Wind:' + windSpeed + 'MPH';
-            currentTemp.textContent = 'Temp:' + temp + '\u00B0'; 
+            currentTemp.textContent = 'Temp:' + temp + '\u00B0';
 
             resultContainer.append(currentCity, currentHumidity, currentWind, currentTemp);
-            
+
             return data;
 
         })
         .then(function (data) {
-// function for five day forecast
+            // function for five day forecast
             const fiveDayForecast = data.list;
 
-            
+            // loop for 5-day forecast
 
             for (i = 0; i < fiveDayForecast.length; i += 5) {
                 const forecast = fiveDayForecast[i];
                 console.log(forecast);
-            
+
                 const forecastContainer = document.querySelector('.forecast-container');
-                // forecastContainer.innerHTML = '';
+
 
                 const date = new Date(forecast.dt * 1000);
                 const humidity = forecast.main.humidity;
@@ -139,6 +150,7 @@ function handleSearchFormSubmit(event) {
 
 searchFormEl.addEventListener('submit', handleSearchFormSubmit, searchHistory);
 
+// handles the searched cities so that they are saved into local storage
 
 function searchHistory() {
     const savedCities = JSON.parse(localStorage.getItem("cities")) || [];
@@ -146,13 +158,15 @@ function searchHistory() {
 
     savedCities.forEach(cities => {
         const searchedCity = document.createElement('p');
-// add in add class for the css on the search history cities
+
+        // add in add class for the css on the search history cities
+
         searchedCity.textContent = cities;
         historyContainer.append(searchedCity);
-        // console.log(cities);
+       
     });
 
-    
+
 }
 searchHistory();
 
