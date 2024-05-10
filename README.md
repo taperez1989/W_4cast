@@ -1,6 +1,7 @@
 # W_4cast
 
-Link to deployed site:
+Link to deployed site:https://taperez1989.github.io/W_4cast/
+
 This weeks challenge was to create a weather forecast site using a third party server api
 When a city is entered into the search form
 Then the user is given a current forecast and a five day forecast
