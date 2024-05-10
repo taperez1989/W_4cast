@@ -4,6 +4,7 @@ function handleSearchFormSubmit(event) {
     event.preventDefault();
 // grabs the value input by the user in the form ex. user enters "san diego"
     const searchInputVal = document.getElementById('city-search').value;
+    document.getElementById('city-search').value = '';
 
     if (!searchInputVal) {
         console.error('search input value required');
@@ -60,25 +61,74 @@ function handleSearchFormSubmit(event) {
             } else {
                 console.log("city is already saved:", cityName);  
             }
-
+// display current weather forecast
             const currentForecast = data.list[0];
             console.log(data.list);
 
-            
+            const date = new Date(currentForecast.dt*1000);
             const humidity = currentForecast.main.humidity;
             const windSpeed = currentForecast.wind.speed;
-            const temp = currentForecast.main.temp
-
+            const temp = currentForecast.main.temp;
             
-            console.log('humidity', humidity);
-            console.log('wind speed', windSpeed);
-            console.log('temp', temp);
+            const resultContainer = document.querySelector('.current-result');
+
+            resultContainer.innerHTML = '';
+
+            const currentHumidity = document.createElement('p');
+            const currentWind = document.createElement('p');
+            const currentTemp = document.createElement('p');
+            const currentCity = document.createElement('h3');
+                
+
+            resultContainer.classList.add('result-card');
+
+            currentCity.textContent = cityName +' '+date.toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: '2-digit' });
+            currentHumidity.textContent = 'Humidity:' + humidity + '%';
+            currentWind.textContent = 'Wind:' + windSpeed + 'MPH';
+            currentTemp.textContent = 'Temp:' + temp + '\u00B0'; 
+
+            resultContainer.append(currentCity, currentHumidity, currentWind, currentTemp);
+            
             return data;
 
-            // append this information to current result container
+        })
+        .then(function (data) {
+// function for five day forecast
+            const fiveDayForecast = data.list;
 
-            // collect 5 day forecast data and append to container
+            
 
+            for (i = 0; i < fiveDayForecast.length; i += 5) {
+                const forecast = fiveDayForecast[i];
+                console.log(forecast);
+            
+                const forecastContainer = document.querySelector('forecast-container');
+                // forecastContainer.innerHTML = '';
+
+                const date = new Date(forecast.dt * 1000);
+                const humidity = forecast.main.humidity;
+                const windSpeed = forecast.wind.speed;
+                const temp = forecast.main.temp;
+
+                const weatherCard = document.createElement('div');
+                weatherCard.classList.add('forecast-card');
+
+                const currentHumidity = document.createElement('p');
+                const currentWind = document.createElement('p');
+                const currentTemp = document.createElement('p');
+                const forecastDate = document.createElement('h3');
+
+                forecastDate.textContent = date.toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: '2-digit' });
+                currentHumidity.textContent = 'Humidity:' + humidity + '%';
+                currentWind.textContent = 'Wind:' + windSpeed + 'MPH';
+                currentTemp.textContent = 'Temp:' + temp + '\u00B0';
+
+                weatherCard.append(forecastDate, currentHumidity, currentWind, currentTemp);
+
+                forecastContainer.append(weatherCard);
+            };
+
+            return data;
         })
 
         // an error at any step of the .thens it stops function
@@ -106,65 +156,4 @@ function searchHistory() {
 }
 searchHistory();
 
-
-// searchFormEl.addEventListener('submit', handleSearchFormSubmit, searchHistory, handleCurrentResults);
-
-   
-
-// function currentForecast() {
-//     const resultContainer = document.querySelector('.current-result');
-
-//     const currentHumidity = document.createElement('p');
-//     const currentWind = document.createElement('p');
-
-//     const currentTemp = document.createElement('p');
-//     const titleEl = document.createElement('h3');
-
-//     currentHumidity.textContent = humidity;
-//     currentWind.textContent = wind;
-//     currentTemp.textContent = temp; 
-
-
-//     resultContainer.append(currentHumidity);
-//     resultContainer.append(currentWind);
-//     resultContainer.append(currentTemp);
-
-
-// }
-// currentForecast()
-
-// const cityName = data.city.name;
-
-
-// dynamically create elements to append information to containers
-
-// task card assignment as starting point
-
-// this is the starting point for the current results section.
-
-// function printResults(resultObj) {
-//     console.log(resultObj);
-
-//     // set up `<div>` to hold result content
-//     const resultCard = document.createElement('div');
-//     resultCard.classList.add;
-
-//     const resultBody = document.createElement('div');
-//     resultBody.classList.add('card-body');
-//     resultCard.append(resultBody);
-
-//     const titleEl = document.createElement('h3');
-//     titleEl.textContent = resultObj.title;
-
-//     const bodyContentEl = document.createElement('p');
-//     bodyContentEl.innerHTML =
-//         `<strong>Date:</strong>${resultObj.date}<br/>`;
-
-//     if (resultObj.subject) {
-//         bodyContentEl.innerHTML +=
-//             `<strong>Subjects:</strong>${resultObj.subject.join(', ')}<br/>`;
-//     } else {
-//         bodyContentEl.innerHTML +=
-//             '<strong>Subjects:</strong> No subject for this entry.';
-//     }
 
