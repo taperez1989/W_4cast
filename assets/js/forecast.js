@@ -102,7 +102,7 @@ function handleSearchFormSubmit(event) {
                 const forecast = fiveDayForecast[i];
                 console.log(forecast);
             
-                const forecastContainer = document.querySelector('forecast-container');
+                const forecastContainer = document.querySelector('.forecast-container');
                 // forecastContainer.innerHTML = '';
 
                 const date = new Date(forecast.dt * 1000);

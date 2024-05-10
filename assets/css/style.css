@@ -73,12 +73,16 @@
     border-style: inset;
     margin-bottom: 10px;
     padding: 10px;
+    display: flex;
+    justify-content: space-evenly; 
 }
 
 .result-card {
  padding: 10px;
 }
+
 .forecast-card {
     background-color: cadetblue;
-    
+    border-radius: 5px;
+    padding: 10px;
 }
