@@ -54,13 +54,14 @@
     margin-top: 10px;
     height: 400px;
     border-style: inset;
+    padding: 10px;
 }
 
 
 .current-result {
     margin-top: 20px;
     width: 95%;
-    height: 100px;
+    height: 200px;
     border-style: inset;
     margin-bottom: 10px;
 
@@ -71,5 +72,13 @@
     height: 200px;
     border-style: inset;
     margin-bottom: 10px;
+    padding: 10px;
 }
 
+.result-card {
+ padding: 10px;
+}
+.forecast-card {
+    background-color: cadetblue;
+    
+}
